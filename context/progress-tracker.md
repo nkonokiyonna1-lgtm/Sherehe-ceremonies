@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-09-09
 **Current phase:** Pre-Phase 1 — planning complete, no code written yet.
-**Overall status:** Project scope, architecture, build sequencing, code standards, and UI design system are all decided and documented. Next session should start on Phase 1 (Foundation: Clerk auth, base app shell, Hono/Neon scaffold).
+**Overall status:** Project scope, architecture, build sequencing, code standards, and UI design system are all decided and documented. Documentation lookups going forward always go through the Context7 connector (see `library-docs.md` → Documentation Lookup Rule), not general web search — library specifics in `library-docs.md` are still marked as unverified against current docs and should be confirmed via Context7 before each phase that needs them. Next session should start on Phase 1 (Foundation: Clerk auth, base app shell, Hono/Neon scaffold).
 
 ---
 
@@ -56,6 +56,7 @@ _None yet — no code written._
 - **Offline-first is a hard requirement for check-in** — scans always write to a local queue first; the network call is never on the critical path of recording a scan. Conflicting duplicate scans are surfaced to the organizer, never silently auto-resolved.
 - **UI system is shadcn/ui on the provided OKLCH token set**, using the `sidebar-07` block (collapsible sidebar + breadcrumb header + content area) as the base app layout.
 - **TypeScript strict mode, PascalCase components, ESLint + Prettier** across the whole codebase — no fork-safety constraint since this is a from-scratch build with no upstream.
+- **All library/API documentation lookups go through the Context7 connector, not general web search** — the one exception is NextSMS, which isn't indexed on Context7 and is instead checked by fetching its known Postman doc URL directly.
 
 ---
 
@@ -74,5 +75,6 @@ _None yet — no code written._
 
 **Next session should:**
 - Start Phase 1 exactly as sequenced in `build-plan.md` — don't skip ahead to the card editor before auth/data-ownership scaffolding exists, since every later table depends on the `user_id` ownership pattern established there.
-- Re-confirm NextSMS's current WhatsApp API request/response shape against `https://documenter.getpostman.com/view/1679195/2sAYkDP1XN` before implementing Phase 4 — treat any snippet written into `library-docs.md` today as a starting point to re-verify, not a final contract.
-- Re-confirm current `@lglab/react-qr-code` and `react-pdf` APIs before Phase 2/4 implementation, since neither has been hand-verified against live docs yet in this planning session.
+- Use the **Context7 connector** for every library documentation lookup from here on — Clerk, Neon, Hono, Konva, `@lglab/react-qr-code`, `react-pdf`, shadcn/ui — never a general web search (see `library-docs.md` → Documentation Lookup Rule and `code-standards.md`). NextSMS is the one exception: it isn't indexed on Context7, so re-confirm its current WhatsApp API request/response shape by fetching `https://documenter.getpostman.com/view/1679195/2sAYkDP1XN` directly before implementing Phase 4.
+- Re-confirm current `@lglab/react-qr-code` and `react-pdf` APIs via Context7 before Phase 2/4 implementation, since neither has been checked against current docs yet in this planning session.
+- Confirm the Neon Workers-runtime client package and the super-admin role modeling approach via Context7 before Phase 1, per the open items flagged in `library-docs.md`.

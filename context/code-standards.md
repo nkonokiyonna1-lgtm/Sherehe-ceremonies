@@ -13,6 +13,7 @@ Implementation rules and conventions for the entire project. The AI agent must f
 - Greenfield codebase, no upstream to protect — organize by feature (`templates/`, `cards/`, `checkins/`, `payments/`), not by strict fork-safety isolation. Still keep server-only logic (Neon queries, NextSMS calls, payment activation) out of anything importable by the client.
 - Understand the client/server/agnostic boundary (see `architecture.md`) before writing a line — this is the most common way secrets or unfiltered queries leak into the client bundle.
 - One thing at a time — complete one feature fully (including a short doc for any non-trivial fix) before starting the next.
+- **Look up current library/API documentation via the Context7 connector, not a general web search.** Before writing code against any dependency in `library-docs.md` (Clerk, Neon, Hono, Konva, `@lglab/react-qr-code`, `react-pdf`, shadcn/ui, etc.), resolve it through Context7 rather than searching the open web or relying on memory of the API shape. The only exception is NextSMS, which isn't indexed on Context7 — fetch its known Postman doc URL directly instead (see `library-docs.md` → Documentation Lookup Rule). Update `library-docs.md` with what was found, same as any other non-trivial finding.
 
 ---
 

@@ -6,12 +6,22 @@ Integration notes for each third-party library/API this project depends on. Trea
 
 ---
 
+## Documentation Lookup Rule
+
+**Always use the Context7 MCP connector to look up current library/API documentation — never a general web search.** Before writing any code against Clerk, Neon, Hono, Konva, `@lglab/react-qr-code`, `react-pdf`, shadcn/ui, or any other dependency listed below, resolve the library via Context7 and pull its current docs through that connector rather than searching the open web or relying on training-data memory of the API shape.
+
+Exception: NextSMS and Lipa Namba are not indexed libraries — NextSMS's API reference lives at a specific Postman-hosted URL and Lipa Namba has no SDK at all (see their sections below). For NextSMS, fetch that specific URL directly rather than web-searching for it. Context7 does not apply to either.
+
+Every time this file is updated after a Context7 lookup, note the date and what was checked in `progress-tracker.md` → Session Notes, the same way `custom/*.md` fixes get documented — so a future session knows how stale a given section is rather than assuming it's still current.
+
+---
+
 ## Clerk (Auth)
 
 - Use `@clerk/clerk-react` on the client for sign-in/sign-up UI and session hooks.
 - On the worker, use `@hono/clerk-auth` middleware (pulls in `@clerk/backend`, Workers/V8-isolate compatible) — do not hand-roll JWT/JWKS verification.
 - The middleware exposes the verified session/user on the Hono context; every route touching owned data (`events`, `cards`, `guests`, `checkins`, `payments`) reads `user_id` from this context, never from the request body (see `architecture.md`).
-- **Super-admin role:** model as a Clerk custom role/claim (e.g. `org_role` or a public metadata flag) rather than a separate app-level table — confirm Clerk's current recommended pattern for a single non-multi-tenant app (this project has no Clerk Organizations concept, just individual users, so the "super admin" flag is likely public/private metadata on the user, not an org role — verify before building Phase 5).
+- **Super-admin role:** model as a Clerk custom role/claim (e.g. `org_role` or a public metadata flag) rather than a separate app-level table — look up Clerk's current recommended pattern for a single non-multi-tenant app via Context7 (this project has no Clerk Organizations concept, just individual users, so the "super admin" flag is likely public/private metadata on the user, not an org role — verify via Context7 before building Phase 5).
 - Env vars: `CLERK_SECRET_KEY` (worker-only), `VITE_CLERK_PUBLISHABLE_KEY` (client-safe).
 
 ---
@@ -19,7 +29,7 @@ Integration notes for each third-party library/API this project depends on. Trea
 ## Neon (Database)
 
 - Single shared Postgres database — no per-tenant project provisioning (unlike a multi-tenant silo model). One `NEON_DATABASE_URL` worker secret.
-- Confirm the exact Postgres client for the Workers runtime before Phase 1 — `@neondatabase/serverless` is the commonly recommended driver for edge/Workers environments, but confirm current package name/version against Neon's own docs rather than assuming.
+- Confirm the exact Postgres client for the Workers runtime before Phase 1 via Context7 — `@neondatabase/serverless` is the commonly recommended driver for edge/Workers environments, but confirm current package name/version through Context7 rather than assuming or web-searching.
 - Whether to use a query builder/ORM (e.g. Drizzle) on top of the raw driver is not yet decided — confirm before Phase 1's schema work; either way, all queries are parameterized and live only in `worker/`.
 - Use standard `ALTER TABLE ADD COLUMN` migrations for schema changes; no per-tenant migration runner needed since there's only one database.
 
@@ -38,7 +48,7 @@ Integration notes for each third-party library/API this project depends on. Trea
 
 - Each template stores its base design as serialized Konva shape data (JSON) — text, image, and shape nodes with metadata marking which fields are organizer-editable vs. fixed.
 - A `Card` stores the organizer's edited copy of that JSON (positions/text/colors changed within the editable regions), not a diff against the template.
-- Confirm the current recommended pattern for exporting a Konva `Stage` to an image (`stage.toDataURL()` / `toImage()`) before wiring PDF export (Phase 4) and WhatsApp image sending (Phase 4) — both need a rendered raster of the finished card.
+- Confirm the current recommended pattern for exporting a Konva `Stage` to an image (`stage.toDataURL()` / `toImage()`) via Context7 before wiring PDF export (Phase 4) and WhatsApp image sending (Phase 4) — both need a rendered raster of the finished card.
 - Tier-specific visual treatment (VIP/VVIP exclusivity styling) lives entirely inside each template's own Konva JSON — no app-level logic branches on tier.
 
 ---
@@ -46,7 +56,7 @@ Integration notes for each third-party library/API this project depends on. Trea
 ## `@lglab/react-qr-code`
 
 - Renders a QR code from a string payload (the card/guest's QR token) as an SVG/canvas component.
-- Confirm current prop names (size, value, error-correction level, etc.) against the package's current README before first use — do not assume standard `qrcode.react`-style props without checking, since this is a less common package.
+- Confirm current prop names (size, value, error-correction level, etc.) via Context7 before first use — do not assume standard `qrcode.react`-style props without checking, since this is a less common package. If Context7 has no index for this package, fall back to fetching its README directly rather than a general web search.
 - The encoded payload should be a stable, non-guessable token (not a raw sequential id) — generate via a secure random string, not an incrementing counter, since check-in security depends on it not being easily forged.
 - Same QR component/sizing is reused across the card preview, the WhatsApp-sent image, and the PDF export (see `ui-rules.md`) — don't re-implement QR rendering three times.
 
@@ -55,17 +65,17 @@ Integration notes for each third-party library/API this project depends on. Trea
 ## `react-pdf` (`@react-pdf/renderer`)
 
 - Used to compose a downloadable PDF from the finished card — likely by embedding a rasterized export of the Konva stage as an image inside a `react-pdf` `<Document>`/`<Page>`, rather than re-implementing the card layout in `react-pdf`'s own primitives.
-- Confirm current `@react-pdf/renderer` API (component names, image embedding pattern) before implementing Phase 4 — the package has had breaking changes across major versions historically.
+- Confirm current `@react-pdf/renderer` API (component names, image embedding pattern) via Context7 before implementing Phase 4 — the package has had breaking changes across major versions historically.
 - Provide both an in-app preview (`PDFViewer`) and a download action (`PDFDownloadLink` or a generated blob) per the planned `PdfCardPreview` component (see `ui-registry.md`).
 
 ---
 
 ## NextSMS (WhatsApp messaging)
 
-- API reference: `https://documenter.getpostman.com/view/1679195/2sAYkDP1XN` — **re-check this before implementing Phase 4**, since it's a Postman-hosted doc that can change without a version bump being obvious.
+- API reference: `https://documenter.getpostman.com/view/1679195/2sAYkDP1XN` — **re-fetch this exact URL before implementing Phase 4**, since it's a Postman-hosted doc that can change without a version bump being obvious. NextSMS is not indexed on Context7, so this is the one library in this file that's checked by direct `web_fetch` of its known URL rather than through the connector.
 - Called server-side only, from `worker/routes/distribution/whatsapp.ts` — API key never reaches the client.
 - Wrap calls with retry logic; never surface NextSMS's raw error response to the organizer — translate to a human-readable message (see `code-standards.md`).
-- Confirm current auth header format, endpoint for sending a WhatsApp message with a media attachment (the rendered card image/PDF link), and rate limits before first use.
+- Confirm current auth header format, endpoint for sending a WhatsApp message with a media attachment (the rendered card image/PDF link), and rate limits before first use, by fetching the Postman doc above.
 - Env vars: `NEXTSMS_API_URL`, `NEXTSMS_API_KEY` (worker-only).
 
 ---
