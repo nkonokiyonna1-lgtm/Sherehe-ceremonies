@@ -66,4 +66,47 @@ Build these following `ui-rules.md`/`ui-tokens.md`; move each into a "Built" tab
 
 ## Built Components
 
-_None yet — add entries here as components are built, following the same table format above (Component / Path / Purpose / exact classes and props used)._
+Added 2026-09-15 by spec 0002 (app shell, design system, accessibility baseline).
+
+### Installed shadcn/ui components (`src/components/ui/`)
+
+| Component | Path | Purpose | Notes |
+| ----------- | -------- | --------- | ------- |
+| Sidebar (`sidebar-07` set) | `src/components/ui/sidebar.tsx` | App shell: collapsible sidebar, mobile Sheet overlay, `sidebar_state` cookie persistence | `SidebarProvider` wraps the shell layout; active item via `SidebarMenuButton isActive`; focus ring `ring-sidebar-ring` |
+| Breadcrumb | `src/components/ui/breadcrumb.tsx` | Header breadcrumbs from route `handle.crumb` via `useMatches` | `BreadcrumbLink asChild` + router `Link` for crumbs, `BreadcrumbPage` for the last |
+| Button | `src/components/ui/button.tsx` | All actions | `asChild` for link buttons; empty-state CTAs use `variant="default"` |
+| Dropdown Menu | `src/components/ui/dropdown-menu.tsx` | Installed with sidebar block (used when the user menu arrives with feature 4) | not yet composed by app code |
+| Avatar | `src/components/ui/avatar.tsx` | Stub user block, sidebar footer | `AvatarFallback` initials only this slice, no `AvatarImage` |
+| Empty | `src/components/ui/empty.tsx` | Every page's empty state | composed via `EmptyStatePage` below |
+| Sonner (Toast) | `src/components/ui/sonner.tsx` | Action-level feedback incl. the guard redirect notice | local edit: `useTheme` now comes from `@/hooks/use-theme` (hand-rolled provider) instead of `next-themes` |
+| Separator, Sheet, Skeleton, Tooltip, Input | `src/components/ui/` | Pulled in as sidebar/sonner dependencies | Tooltip: app wraps `TooltipProvider` once in `App.tsx` |
+
+### Sherehe shell components (built spec 0002)
+
+| Component | Path | Purpose | Classes/props |
+| ----------- | -------- | --------- | --------------- |
+| `ShellLayout` | `src/layouts/ShellLayout.tsx` | The one layout route: skip link, sidebar, header (trigger + breadcrumbs + theme toggle), `<main id="main-content" tabIndex={-1}>`, `<Toaster>` | focus moves to `#main-content` on every pathname change except first mount |
+| `AppSidebar` / `SidebarNav` | inside `ShellLayout.tsx` | Renders `visibleNavItems()` from `src/config/nav.ts` only; `aria-current="page"` on the active link; brand header; stub user footer | `SidebarMenuButton asChild isActive tooltip`; nav wrapped in `<nav aria-label="Main">` |
+| `RequireSuperAdmin` | `src/components/RequireSuperAdmin.tsx` | Client-side UX guard on `/admin/activation`: redirect to `/dashboard` + `toast.warning` with stable id `activation-role-guard` (no stacked toasts) | never enforcement, see spec 0002 security model |
+| `EmptyStatePage` | `src/components/EmptyStatePage.tsx` | Shared page shape for every shell destination: `<h1>` + `Empty` (icon media, title, one muted line, one CTA `Button asChild`) | used by `src/pages/pages.tsx` |
+| `LandingPage` | `src/pages/LandingPage.tsx` | Layoutless `/`: wordmark, headline, CTA link to `/dashboard`, footer | theme toggle present; feature 4 swaps in Clerk `<SignIn />` |
+| `ThemeProvider` / `useTheme` | `src/components/ThemeProvider.tsx`, `src/hooks/use-theme.ts`, `src/components/theme-context.ts` | Light/dark following OS until toggled; stored in `localStorage.theme`; pre-paint script in `index.html` prevents flash | values `'light' \| 'dark'`; stored choice wins on load |
+| `ThemeToggle` | `src/components/ThemeToggle.tsx` | Header icon button, Sun/Moon, `aria-label` states the target theme | `Button variant="ghost" size="icon"` |
+
+### Empty state copy in use (recorded per ui-rules.md)
+
+- Dashboard: "Nothing to report yet" / attendance lands here when an event is live / CTA "Browse templates"
+- Templates: "No templates yet" / CTA "Go to Events"
+- Events: "No events yet" / CTA "Create an event" (lands on `/dashboard` until feature 6 builds creation)
+- Billing: "No payments to show" / CTA "Go to Events"
+- Check-In: "Check-in unlocks during a live event" / CTA "Go to Events"
+- Reports: "No reports yet" / CTA "Go to Events"
+- Settings: "Nothing to configure yet" / CTA "Go to Dashboard"
+- Activation: "No events awaiting activation" / CTA "Go to Dashboard"
+- NotFound: "We couldn't find that page" / CTA "Go to Dashboard"
+- Guard toast: "Event Activation is only available to super admins."
+
+## Notes
+
+- The two planned-inventory tables above (`shadcn/ui Base Components`, `Sherehe-Specific Components`) still list items not built yet; rows for Sidebar, Button, Avatar, Sonner, and the dropdown/breadcrumb/empty adds are now built and recorded in the Built table. `/sync` may prune those rows later.
+- Status colors for `Badge` variants are still unverified against an installed `Badge` (not installed in this slice; see `ui-tokens.md` Status Colors note).

@@ -126,7 +126,14 @@ Approved core dependencies (see `package.json` for exact versions):
 - `react` / `react-dom` / `react-router` — UI framework and routing
 - `typescript` — strict mode, both `src/` and `worker/`
 - `tailwindcss` + `shadcn/ui` — styling and component primitives
-- Dev/test: `vitest`, `playwright`, `eslint` (+ plugins), `prettier`
+- `@tailwindcss/vite` — Tailwind v4's Vite plugin (the CSS `@theme` mechanism replaces `tailwind.config.ts`)
+- `shadcn` — runtime dependency (the `shadcn/tailwind.css` import in `src/index.css` resolves from this package)
+- `radix-ui` — shadcn's component primitives (installed via `shadcn init`, radix base)
+- `class-variance-authority` + `cn` — component variants and class merging (shadcn's `cn()` helper re-exports `cn`)
+- `lucide-react` — icon set (shadcn default)
+- `tw-animate-css` — animation utilities used by shadcn components
+- `sonner` — toasts (action-level feedback, see `ui-rules.md`)
+- Dev/test: `vitest`, `playwright`, `eslint` (+ plugins), `prettier`, `@testing-library/react`, `@testing-library/jest-dom`, `@testing-library/user-event`, `jsdom`
 
 ### Client (`src/`)
 

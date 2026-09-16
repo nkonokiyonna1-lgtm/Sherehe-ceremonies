@@ -12,7 +12,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 | # | Feature | Phase | Status |
 |---|---------|-------|--------|
 | 1 | Coding standards & tooling | Foundation | in-progress |
-| 2 | App shell, design system & accessibility baseline | Foundation | planned |
+| 2 | App shell, design system & accessibility baseline | Foundation | in-progress |
 | 3 | Internationalization scaffold (English/Swahili) | Foundation | planned |
 | 4 | Auth & data foundation | Foundation | planned |
 | 5 | Analytics & error monitoring setup | Foundation | planned |
@@ -33,12 +33,19 @@ Confirm and sharpen the existing `AGENTS.md`/`context/` conventions and lint and
 spec [0001](../specs/0001-coding-standards-tooling/index.md) · code in `tsconfig.app.json`, `tsconfig.node.json`, `.prettierrc`, `eslint.config.js`, `vite.config.ts`, `playwright.config.ts`, `e2e/`
 - [x] Capture conventions + tooling choices: `/audit`
 - [x] Apply the standard: `/develop coding standards & tooling` (TypeScript strict mode on, Prettier configured, Vitest + Playwright installed with a passing smoke test each)
-- [ ] Verify it: `/check verify coding standards & tooling`
+- [x] Verify it: `/check verify coding standards & tooling`
 
-### 2. App shell, design system & accessibility baseline · needs a decision
+### 2. App shell, design system & accessibility baseline
 The shadcn `sidebar-07` layout (collapsible sidebar, breadcrumb header, content area) on the provided OKLCH token set, with the sidebar groups from `project-overview.md` (Templates, Events, Billing, Check In, Reports, Settings, super admin only items), plus a basic semantic HTML and keyboard navigation baseline applied across every page from the start.
 **Done when:** the sidebar and breadcrumb shell renders with the correct nav groups and role visibility, and base components handle focus and keyboard use.
-- [ ] Design it (spec): `/architect app shell, design system & accessibility baseline`
+spec [0002](../specs/0002-app-shell-design-system-accessibility/index.md)
+- [x] Design it (spec): `/architect app shell, design system & accessibility baseline`
+- [ ] Build it: `/develop app shell, design system & accessibility baseline`
+  - [ ] Toolchain and tokens: install router, Tailwind v4, shadcn init; port the light and dark OKLCH set into `src/index.css` (AC-7, AC-9)
+  - [ ] Shell and routing thread: sidebar block plus components, stub seams for role and liveness, route map with layoutless landing, guard, and NotFound (AC-1, AC-2, AC-3, AC-6)
+  - [ ] Frame finished: breadcrumbs from route metadata, collapse and mobile overlay, theme toggle with pre-paint script, skip link and focus on navigation, empty states on every page (AC-1, AC-4, AC-5, AC-6)
+  - [ ] Proven: jsdom keyboard tests, one Playwright shell spec, lint, format, test, build clean, registry updated (AC-5, AC-8, AC-9)
+- [ ] Verify it: `/check verify app shell, design system & accessibility baseline`
 
 ### 3. Internationalization scaffold (English/Swahili) · needs a decision
 Wire an i18n approach so every page can be authored in English and Swahili from day one, rather than retrofitted once content exists.
