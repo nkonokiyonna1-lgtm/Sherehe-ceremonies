@@ -2,9 +2,9 @@
 
 # Progress Tracker
 
-**Last updated:** 2026-09-09
-**Current phase:** Pre-Phase 1 — planning complete, no code written yet.
-**Overall status:** Project scope, architecture, build sequencing, code standards, and UI design system are all decided and documented. Documentation lookups going forward always go through the Context7 connector (see `library-docs.md` → Documentation Lookup Rule), not general web search — library specifics in `library-docs.md` are still marked as unverified against current docs and should be confirmed via Context7 before each phase that needs them. Next session should start on Phase 1 (Foundation: Clerk auth, base app shell, Hono/Neon scaffold).
+**Last updated:** 2026-09-17
+**Current phase:** Phase 1 (Foundation) — app shell, design system and accessibility baseline built; auth and backend still to come.
+**Overall status:** Project scope, architecture, build sequencing, code standards, and UI design system are all decided and documented. Feature 2's app shell, design system, and accessibility baseline are implemented; `lint`, `format`, `test` (10 jsdom tests), and `build` pass, while AC-8 remains pending successful execution of `e2e/shell.spec.ts`. Documentation lookups going forward always go through the Context7 connector (see `library-docs.md` → Documentation Lookup Rule), not general web search — library specifics in `library-docs.md` are still marked as unverified against current docs and should be confirmed via Context7 before each phase that needs them.
 
 ---
 
@@ -23,11 +23,12 @@
 
 ## In Progress
 
-- [ ] None — no code written yet.
+- [ ] Feature 2 — App shell, design system & accessibility baseline: built on `development` per spec 0002, awaiting `/check verify` (Alpha workflow). `lint`, `format`, `test` (10 jsdom tests) and `build` all pass; the Playwright shell spec (AC-8) is authored but has not been executed yet, since browser binaries could not be installed in the build sandbox.
 
 ## Up Next
 
-- [ ] Start Phase 1 (Foundation): scaffold `worker/` (Hono), wire `@hono/clerk-auth`, connect Neon, stand up the `sidebar-07`-based app shell in `src/`.
+- [ ] Run `e2e/shell.spec.ts` successfully when Playwright browser binaries are available to verify the app shell's AC-8 coverage.
+- [ ] Start the remaining Phase 1 foundation work: scaffold `worker/` (Hono), wire `@hono/clerk-auth`, and connect Neon.
 - [ ] Confirm the exact Neon client package for the Workers runtime (e.g. `@neondatabase/serverless`) before writing the first query.
 - [ ] Confirm the offline-queue approach for the check-in PWA (e.g. Workbox + IndexedDB vs a lighter hand-rolled queue) before Phase 6, but decide early enough that Phase 1's PWA manifest/service-worker scaffolding accounts for it.
 - [ ] Set up Clerk, Neon, and NextSMS accounts/credentials ahead of the phases that need them, so implementation isn't blocked on account provisioning.
@@ -41,7 +42,7 @@
 
 ## Known Issues
 
-_None yet — no code written._
+_No known code issues. Feature 2's AC-8 Playwright verification is still pending because the shell spec has not yet executed successfully._
 
 ---
 
