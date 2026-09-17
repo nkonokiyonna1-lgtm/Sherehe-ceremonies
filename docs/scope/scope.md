@@ -44,7 +44,7 @@ spec [0002](../specs/0002-app-shell-design-system-accessibility/index.md)
   - [x] Toolchain and tokens: install router, Tailwind v4, shadcn init; port the light and dark OKLCH set into `src/index.css` (AC-7, AC-9)
   - [x] Shell and routing thread: sidebar block plus components, stub seams for role and liveness, route map with layoutless landing, guard, and NotFound (AC-1, AC-2, AC-3, AC-6)
   - [x] Frame finished: breadcrumbs from route metadata, collapse and mobile overlay, theme toggle with pre-paint script, skip link and focus on navigation, empty states on every page (AC-1, AC-4, AC-5, AC-6)
-  - [x] Proven: jsdom keyboard tests, one Playwright shell spec, lint, format, test, build clean, registry updated (AC-5, AC-8, AC-9) — Playwright spec authored, not yet executed (browser binaries unavailable in the build sandbox, re-assert at `/check verify`)
+  - [x] Proven: jsdom keyboard tests, lint, format, test, build clean, registry updated (AC-5, AC-9). The AC-8 Playwright shell spec is authored but remains pending until `e2e/shell.spec.ts` executes successfully; `e2e/scaffold.spec.ts` does not verify AC-8.
 code: `src/layouts/ShellLayout.tsx`, `src/routes.tsx`, `src/config/nav.ts`, `src/components/ui/`, `src/index.css`
 - [ ] Verify it: `/check verify app shell, design system & accessibility baseline`
 
