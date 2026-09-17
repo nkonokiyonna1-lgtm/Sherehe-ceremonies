@@ -2,8 +2,8 @@
 
 # Progress Tracker
 
-**Last updated:** 2026-09-09
-**Current phase:** Pre-Phase 1 — planning complete, no code written yet.
+**Last updated:** 2026-09-17
+**Current phase:** Phase 1 (Foundation) — app shell, design system and accessibility baseline built; auth and backend still to come.
 **Overall status:** Project scope, architecture, build sequencing, code standards, and UI design system are all decided and documented. Documentation lookups going forward always go through the Context7 connector (see `library-docs.md` → Documentation Lookup Rule), not general web search — library specifics in `library-docs.md` are still marked as unverified against current docs and should be confirmed via Context7 before each phase that needs them. Next session should start on Phase 1 (Foundation: Clerk auth, base app shell, Hono/Neon scaffold).
 
 ---
@@ -23,7 +23,7 @@
 
 ## In Progress
 
-- [ ] None — no code written yet.
+- [ ] Feature 2 — App shell, design system & accessibility baseline: built on `development` per spec 0002, awaiting `/check verify` (Alpha workflow). `lint`, `format`, `test` (10 jsdom tests) and `build` all pass; the Playwright shell spec (AC-8) is authored but has not been executed yet, since browser binaries could not be installed in the build sandbox.
 
 ## Up Next
 
