@@ -13,7 +13,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 |---|---------|-------|--------|
 | 1 | Coding standards & tooling | Foundation | in-progress |
 | 2 | App shell, design system & accessibility baseline | Foundation | in-progress |
-| 3 | Internationalization scaffold (English/Swahili) | Foundation | planned |
+| 3 | Internationalization scaffold (English/Swahili) | Foundation | in-progress |
 | 4 | Auth & data foundation | Foundation | planned |
 | 5 | Analytics & error monitoring setup | Foundation | planned |
 | 6 | Core event to check in loop | Slice 1 | planned |
@@ -48,10 +48,13 @@ spec [0002](../specs/0002-app-shell-design-system-accessibility/index.md)
 code: `src/layouts/ShellLayout.tsx`, `src/routes.tsx`, `src/config/nav.ts`, `src/components/ui/`, `src/index.css`
 - [ ] Verify it: `/check verify app shell, design system & accessibility baseline`
 
-### 3. Internationalization scaffold (English/Swahili) · needs a decision
+### 3. Internationalization scaffold (English/Swahili)
 Wire an i18n approach so every page can be authored in English and Swahili from day one, rather than retrofitted once content exists.
 **Done when:** a page renders in either language behind a locale switch, and new strings have an established pattern to follow.
-- [ ] Design it (spec): `/architect internationalization scaffold`
+spec [0003](../specs/0003-internationalization-scaffold/index.md)
+- [x] Design it (spec): `/architect internationalization scaffold`
+- [ ] Build it: `/develop internationalization scaffold`
+- [ ] Verify it: `/check verify internationalization scaffold`
 
 ### 4. Auth & data foundation · needs a decision
 Clerk sign in and sign up, the Hono worker scaffold (`worker/`) with Clerk session verification middleware, the Neon connection, and the initial schema (`users`, `events`) establishing the row ownership pattern (`user_id` filtered queries) that every later table reuses.
