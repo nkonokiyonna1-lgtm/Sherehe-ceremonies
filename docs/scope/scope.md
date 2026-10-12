@@ -51,9 +51,9 @@ code: `src/layouts/ShellLayout.tsx`, `src/routes.tsx`, `src/config/nav.ts`, `src
 ### 3. Internationalization scaffold (English/Swahili)
 Wire an i18n approach so every page can be authored in English and Swahili from day one, rather than retrofitted once content exists.
 **Done when:** a page renders in either language behind a locale switch, and new strings have an established pattern to follow.
-spec [0003](../specs/0003-internationalization-scaffold/index.md)
+spec [0003](../specs/0003-internationalization-scaffold/index.md) · code in `src/i18n/`, `shared/i18n.ts`, `shared/locales/`, `src/components/LanguageSwitch.tsx`
 - [x] Design it (spec): `/architect internationalization scaffold`
-- [ ] Build it: `/develop internationalization scaffold`
+- [x] Build it: `/develop internationalization scaffold`
 - [ ] Verify it: `/check verify internationalization scaffold`
 
 ### 4. Auth & data foundation · needs a decision

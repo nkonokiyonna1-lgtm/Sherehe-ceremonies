@@ -126,6 +126,7 @@ Approved core dependencies (see `package.json` for exact versions):
 - `react` / `react-dom` / `react-router` — UI framework and routing
 - `typescript` — strict mode, both `src/` and `worker/`
 - `tailwindcss` + `shadcn/ui` — styling and component primitives
+- `i18next` + `react-i18next` — English and Swahili translations (spec 0003); the worker uses plain `i18next` only, with the same JSON catalogs
 - Dev/test: `vitest`, `playwright`, `eslint` (+ plugins), `prettier`
 
 ### Client (`src/`)

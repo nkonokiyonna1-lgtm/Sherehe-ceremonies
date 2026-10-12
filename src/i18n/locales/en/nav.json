@@ -1,0 +1,21 @@
+{
+  "skipToContent": "Skip to content",
+  "mainLabel": "Main",
+  "group": "Organizer",
+  "dashboard": "Dashboard",
+  "templates": "Templates",
+  "events": "Events",
+  "billing": "Billing",
+  "checkIn": "Check-In",
+  "reports": "Reports",
+  "settings": "Settings",
+  "eventActivation": "Event Activation",
+  "activation": "Activation",
+  "roles": {
+    "superAdmin": "Super admin",
+    "organizer": "Organizer"
+  },
+  "guard": {
+    "superAdminOnly": "Event Activation is only available to super admins."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "skipToContent": "Ruka hadi maudhui",
+  "mainLabel": "Menyu kuu",
+  "group": "Mwandaaji",
+  "dashboard": "Dashibodi",
+  "templates": "Violezo",
+  "events": "Matukio",
+  "billing": "Malipo",
+  "checkIn": "Kuingia",
+  "reports": "Ripoti",
+  "settings": "Mipangilio",
+  "eventActivation": "Kuwezesha Tukio",
+  "activation": "Kuwezesha",
+  "roles": {
+    "superAdmin": "Msimamizi mkuu",
+    "organizer": "Mwandaaji"
+  },
+  "guard": {
+    "superAdminOnly": "Kuwezesha Tukio kunapatikana kwa wasimamizi wakuu pekee."
+  }
+}

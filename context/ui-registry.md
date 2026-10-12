@@ -73,7 +73,7 @@ Added 2026-09-15 by spec 0002 (app shell, design system, accessibility baseline)
 | Component | Path | Purpose | Notes |
 | ----------- | -------- | --------- | ------- |
 | Sidebar (`sidebar-07` set) | `src/components/ui/sidebar.tsx` | App shell: collapsible sidebar, mobile Sheet overlay, `sidebar_state` cookie persistence | `SidebarProvider` wraps the shell layout; active item via `SidebarMenuButton isActive`; focus ring `ring-sidebar-ring` |
-| Breadcrumb | `src/components/ui/breadcrumb.tsx` | Header breadcrumbs from route `handle.crumb` via `useMatches` | `BreadcrumbLink asChild` + router `Link` for crumbs, `BreadcrumbPage` for the last |
+| Breadcrumb | `src/components/ui/breadcrumb.tsx` | Header breadcrumbs from route `handle.crumbKey` (a `nav` catalog key) via `useMatches` | `BreadcrumbLink asChild` + router `Link` for crumbs, `BreadcrumbPage` for the last |
 | Button | `src/components/ui/button.tsx` | All actions | `asChild` for link buttons; empty-state CTAs use `variant="default"` |
 | Dropdown Menu | `src/components/ui/dropdown-menu.tsx` | Installed with sidebar block (used when the user menu arrives with feature 4) | not yet composed by app code |
 | Avatar | `src/components/ui/avatar.tsx` | Stub user block, sidebar footer | `AvatarFallback` initials only this slice, no `AvatarImage` |
@@ -85,13 +85,15 @@ Added 2026-09-15 by spec 0002 (app shell, design system, accessibility baseline)
 
 | Component | Path | Purpose | Classes/props |
 | ----------- | -------- | --------- | --------------- |
-| `ShellLayout` | `src/layouts/ShellLayout.tsx` | The one layout route: skip link, sidebar, header (trigger + breadcrumbs + theme toggle), `<main id="main-content" tabIndex={-1}>`, `<Toaster>` | focus moves to `#main-content` on every pathname change except first mount |
+| `ShellLayout` | `src/layouts/ShellLayout.tsx` | The one layout route: skip link, sidebar, header (trigger + breadcrumbs + language switch + theme toggle), `<main id="main-content" tabIndex={-1}>`, `<Toaster>` | focus moves to `#main-content` on every pathname change except first mount |
 | `AppSidebar` / `SidebarNav` | inside `ShellLayout.tsx` | Renders `visibleNavItems()` from `src/config/nav.ts` only; `aria-current="page"` on the active link; brand header; stub user footer | `SidebarMenuButton asChild isActive tooltip`; nav wrapped in `<nav aria-label="Main">` |
 | `RequireSuperAdmin` | `src/components/RequireSuperAdmin.tsx` | Client-side UX guard on `/admin/activation`: redirect to `/dashboard` + `toast.warning` with stable id `activation-role-guard` (no stacked toasts) | never enforcement, see spec 0002 security model |
 | `EmptyStatePage` | `src/components/EmptyStatePage.tsx` | Shared page shape for every shell destination: `<h1>` + `Empty` (icon media, title, one muted line, one CTA `Button asChild`) | used by `src/pages/pages.tsx` |
 | `LandingPage` | `src/pages/LandingPage.tsx` | Layoutless `/`: wordmark, headline, CTA link to `/dashboard`, footer | theme toggle present; feature 4 swaps in Clerk `<SignIn />` |
 | `ThemeProvider` / `useTheme` | `src/components/ThemeProvider.tsx`, `src/hooks/use-theme.ts`, `src/components/theme-context.ts` | Light/dark following OS until toggled; stored in `localStorage.theme`; pre-paint script in `index.html` prevents flash | values `'light' \| 'dark'`; stored choice wins on load |
-| `ThemeToggle` | `src/components/ThemeToggle.tsx` | Header icon button, Sun/Moon, `aria-label` states the target theme | `Button variant="ghost" size="icon"` |
+| `ThemeToggle` | `src/components/ThemeToggle.tsx` | Header icon button, Sun/Moon, `aria-label` states the target theme (text from the `common` catalog) | `Button variant="ghost" size="icon"` |
+| `LanguageSwitch` | `src/components/LanguageSwitch.tsx` | Header button on the shell and the landing page: shows the name of the other language (English or Kiswahili), `aria-label` says "Switch language to ..." in the active language | `Button variant="ghost"`, `LanguagesIcon`, visible name carries `lang` of the target language |
+| i18n setup (spec 0003) | `src/i18n/index.ts`, `shared/i18n.ts` | One shared i18next instance, started by `import './i18n'` in `main.tsx` and in `src/test/setup.ts`. `setLocale()` saves the choice in `localStorage.locale` and `<html lang>` follows it. Starts in English, no browser detection | catalogs: `shared/locales/{en,sw}/common.json`, `src/i18n/locales/{en,sw}/{nav,landing,pages}.json`; use `useTranslation('<namespace>')` and add every new key to both languages |
 
 ### Empty state copy in use (recorded per ui-rules.md)
 
@@ -108,5 +110,7 @@ Added 2026-09-15 by spec 0002 (app shell, design system, accessibility baseline)
 
 ## Notes
 
+- Local edits to generated shadcn files for spec 0003: `sidebar.tsx`, `sheet.tsx` and `breadcrumb.tsx` now read their screen reader text (toggle, close, breadcrumb, more) from the `common` catalog under `ui.*`. Keep these edits if the files are regenerated.
+- Nav items in `src/config/nav.ts` carry `titleKey` (a `nav` catalog key), not display text.
 - The two planned-inventory tables above (`shadcn/ui Base Components`, `Sherehe-Specific Components`) still list items not built yet; rows for Sidebar, Button, Avatar, Sonner, and the dropdown/breadcrumb/empty adds are now built and recorded in the Built table. `/sync` may prune those rows later.
 - Status colors for `Badge` variants are still unverified against an installed `Badge` (not installed in this slice; see `ui-tokens.md` Status Colors note).

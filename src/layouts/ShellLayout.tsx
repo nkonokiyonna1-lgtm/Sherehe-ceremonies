@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link, Outlet, useLocation, useMatches } from 'react-router'
 import { ShieldCheckIcon } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { getCurrentUser } from '@/lib/auth'
 import { visibleNavItems } from '@/config/nav'
 import {
@@ -29,37 +30,40 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar'
 import { Toaster } from '@/components/ui/sonner'
+import { LanguageSwitch } from '@/components/LanguageSwitch'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
-type CrumbHandle = { crumb?: string }
+type CrumbHandle = { crumbKey?: string }
 
 function SidebarNav() {
+  const { t } = useTranslation('nav')
   const location = useLocation()
   const items = visibleNavItems()
 
   return (
-    <nav aria-label="Main" className="flex min-h-0 flex-1 flex-col">
+    <nav aria-label={t('mainLabel')} className="flex min-h-0 flex-1 flex-col">
       <SidebarGroup>
-        <SidebarGroupLabel>Organizer</SidebarGroupLabel>
+        <SidebarGroupLabel>{t('group')}</SidebarGroupLabel>
         <SidebarGroupContent>
           <SidebarMenu>
             {items.map((item) => {
               const isActive = location.pathname === item.href
               const Icon = item.icon
+              const title = t(item.titleKey)
 
               return (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
                     asChild
                     isActive={isActive}
-                    tooltip={item.title}
+                    tooltip={title}
                   >
                     <Link
                       to={item.href}
                       aria-current={isActive ? 'page' : undefined}
                     >
                       <Icon />
-                      <span>{item.title}</span>
+                      <span>{title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -73,6 +77,7 @@ function SidebarNav() {
 }
 
 function AppSidebar() {
+  const { t } = useTranslation('nav')
   const user = getCurrentUser()
 
   return (
@@ -110,7 +115,11 @@ function AppSidebar() {
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">{user.name}</span>
                   <span className="truncate text-xs">
-                    {user.role === 'super_admin' ? 'Super admin' : 'Organizer'}
+                    {t(
+                      user.role === 'super_admin'
+                        ? 'roles.superAdmin'
+                        : 'roles.organizer'
+                    )}
                   </span>
                 </div>
               </div>
@@ -124,15 +133,17 @@ function AppSidebar() {
 }
 
 function Breadcrumbs() {
+  const { t } = useTranslation('nav')
   const matches = useMatches()
   const crumbs = matches
     .map((match) => ({
-      label: (match.handle as CrumbHandle | undefined)?.crumb,
+      key: (match.handle as CrumbHandle | undefined)?.crumbKey,
       href: match.pathname,
     }))
-    .filter((crumb): crumb is { label: string; href: string } =>
-      Boolean(crumb.label)
+    .filter((crumb): crumb is { key: string; href: string } =>
+      Boolean(crumb.key)
     )
+    .map((crumb) => ({ label: t(crumb.key), href: crumb.href }))
 
   if (crumbs.length === 0) return null
 
@@ -163,6 +174,7 @@ function Breadcrumbs() {
 }
 
 function ShellLayout() {
+  const { t } = useTranslation('nav')
   const location = useLocation()
   const mainRef = useRef<HTMLElement>(null)
   const lastPathname = useRef(location.pathname)
@@ -187,7 +199,7 @@ function ShellLayout() {
         onClick={skipToContent}
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:text-primary-foreground"
       >
-        Skip to content
+        {t('skipToContent')}
       </a>
       <AppSidebar />
       <SidebarInset>
@@ -196,6 +208,7 @@ function ShellLayout() {
           <div className="flex-1">
             <Breadcrumbs />
           </div>
+          <LanguageSwitch />
           <ThemeToggle />
         </header>
         <main

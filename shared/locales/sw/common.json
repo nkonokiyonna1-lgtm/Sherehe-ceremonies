@@ -1,0 +1,21 @@
+{
+  "theme": {
+    "switchToLight": "Badilisha kwenda mandhari angavu",
+    "switchToDark": "Badilisha kwenda mandhari meusi"
+  },
+  "language": {
+    "switchTo": "Badilisha lugha kuwa {{language}}",
+    "names": {
+      "en": "English",
+      "sw": "Kiswahili"
+    }
+  },
+  "ui": {
+    "toggleSidebar": "Badilisha upau wa pembeni",
+    "sidebarTitle": "Upau wa pembeni",
+    "mobileSidebarDescription": "Inaonyesha upau wa pembeni wa simu.",
+    "close": "Funga",
+    "breadcrumb": "Njia ya kurasa",
+    "more": "Zaidi"
+  }
+}

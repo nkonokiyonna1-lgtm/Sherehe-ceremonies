@@ -238,3 +238,103 @@ describe('role guard on /admin/activation (AC-3)', () => {
     ).toBeInTheDocument()
   })
 })
+
+describe('language switch (spec 0003)', () => {
+  it('switches the shell to Swahili and back, and remembers the choice', async () => {
+    const user = userEvent.setup()
+    renderAt('/dashboard')
+
+    await user.click(
+      screen.getByRole('button', { name: 'Switch language to Kiswahili' })
+    )
+
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Dashibodi' })
+    ).toBeInTheDocument()
+    expect(
+      within(screen.getByRole('navigation', { name: 'Menyu kuu' })).getByRole(
+        'link',
+        { name: 'Matukio' }
+      )
+    ).toBeInTheDocument()
+    expect(document.documentElement.lang).toBe('sw')
+    expect(localStorage.getItem('locale')).toBe('sw')
+
+    await user.click(
+      screen.getByRole('button', { name: 'Badilisha lugha kuwa English' })
+    )
+
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Dashboard' })
+    ).toBeInTheDocument()
+    expect(document.documentElement.lang).toBe('en')
+  })
+
+  it('translates the layoutless landing page and the theme toggle label', async () => {
+    const user = userEvent.setup()
+    renderAt('/')
+
+    await user.click(
+      screen.getByRole('button', { name: 'Switch language to Kiswahili' })
+    )
+
+    expect(
+      await screen.findByRole('heading', { level: 1, name: /kadi nzuri/i })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('link', { name: 'Ingia ili kuanza' })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: /badilisha kwenda mandhari/i })
+    ).toBeInTheDocument()
+  })
+
+  it('shows the guard notice in the active language', async () => {
+    const user = userEvent.setup()
+    renderAt('/dashboard')
+    await user.click(
+      screen.getByRole('button', { name: 'Switch language to Kiswahili' })
+    )
+    await screen.findByRole('heading', { level: 1, name: 'Dashibodi' })
+
+    await user.click(
+      within(screen.getByRole('navigation', { name: 'Menyu kuu' })).getByRole(
+        'link',
+        { name: 'Mipangilio' }
+      )
+    )
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Mipangilio' })
+    ).toBeInTheDocument()
+  })
+})
+
+describe('assistive text from the base components (spec 0003)', () => {
+  it('translates the sidebar trigger and the breadcrumb landmark', async () => {
+    const user = userEvent.setup()
+    renderAt('/dashboard')
+
+    expect(
+      screen.getAllByRole('button', { name: 'Toggle Sidebar' }).length
+    ).toBeGreaterThan(0)
+    expect(
+      screen.getByRole('navigation', { name: 'breadcrumb' })
+    ).toBeInTheDocument()
+
+    await user.click(
+      screen.getByRole('button', { name: 'Switch language to Kiswahili' })
+    )
+
+    expect(
+      (
+        await screen.findAllByRole('button', {
+          name: 'Badilisha upau wa pembeni',
+        })
+      ).length
+    ).toBeGreaterThan(0)
+    expect(screen.queryByRole('button', { name: 'Toggle Sidebar' })).toBeNull()
+    expect(
+      screen.getByRole('navigation', { name: 'Njia ya kurasa' })
+    ).toBeInTheDocument()
+  })
+})

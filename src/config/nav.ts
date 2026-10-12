@@ -15,7 +15,7 @@ import { isEventLive } from '@/lib/event-status'
 export type NavVisibility = 'always' | 'super_admin' | 'live_event'
 
 export type NavItem = {
-  title: string
+  titleKey: string
   href: string
   icon: LucideIcon
   visibility: NavVisibility
@@ -23,49 +23,49 @@ export type NavItem = {
 
 export const navItems: NavItem[] = [
   {
-    title: 'Dashboard',
+    titleKey: 'dashboard',
     href: '/dashboard',
     icon: LayoutDashboardIcon,
     visibility: 'always',
   },
   {
-    title: 'Templates',
+    titleKey: 'templates',
     href: '/templates',
     icon: LayoutTemplateIcon,
     visibility: 'always',
   },
   {
-    title: 'Events',
+    titleKey: 'events',
     href: '/events',
     icon: CalendarDaysIcon,
     visibility: 'always',
   },
   {
-    title: 'Billing',
+    titleKey: 'billing',
     href: '/billing',
     icon: CreditCardIcon,
     visibility: 'always',
   },
   {
-    title: 'Check-In',
+    titleKey: 'checkIn',
     href: '/check-in',
     icon: ScanLineIcon,
     visibility: 'live_event',
   },
   {
-    title: 'Reports',
+    titleKey: 'reports',
     href: '/reports',
     icon: BarChart3Icon,
     visibility: 'always',
   },
   {
-    title: 'Settings',
+    titleKey: 'settings',
     href: '/settings',
     icon: SettingsIcon,
     visibility: 'always',
   },
   {
-    title: 'Event Activation',
+    titleKey: 'eventActivation',
     href: '/admin/activation',
     icon: BellRingIcon,
     visibility: 'super_admin',

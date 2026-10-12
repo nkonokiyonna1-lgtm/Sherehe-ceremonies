@@ -24,37 +24,37 @@ export const routes: RouteObject[] = [
     children: [
       {
         Component: DashboardPage,
-        handle: { crumb: 'Dashboard' },
+        handle: { crumbKey: 'dashboard' },
         path: 'dashboard',
       },
       {
         Component: TemplatesPage,
-        handle: { crumb: 'Templates' },
+        handle: { crumbKey: 'templates' },
         path: 'templates',
       },
       {
         Component: EventsPage,
-        handle: { crumb: 'Events' },
+        handle: { crumbKey: 'events' },
         path: 'events',
       },
       {
         Component: BillingPage,
-        handle: { crumb: 'Billing' },
+        handle: { crumbKey: 'billing' },
         path: 'billing',
       },
       {
         Component: CheckInPage,
-        handle: { crumb: 'Check-In' },
+        handle: { crumbKey: 'checkIn' },
         path: 'check-in',
       },
       {
         Component: ReportsPage,
-        handle: { crumb: 'Reports' },
+        handle: { crumbKey: 'reports' },
         path: 'reports',
       },
       {
         Component: SettingsPage,
-        handle: { crumb: 'Settings' },
+        handle: { crumbKey: 'settings' },
         path: 'settings',
       },
       {
@@ -63,7 +63,7 @@ export const routes: RouteObject[] = [
         children: [
           {
             Component: ActivationPage,
-            handle: { crumb: 'Activation' },
+            handle: { crumbKey: 'activation' },
             path: 'activation',
           },
         ],

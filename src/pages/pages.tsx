@@ -9,15 +9,18 @@ import {
   ScanLineIcon,
   SettingsIcon,
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { EmptyStatePage } from '@/components/EmptyStatePage'
 
 export function DashboardPage() {
+  const { t } = useTranslation('pages')
+
   return (
     <EmptyStatePage
-      title="Dashboard"
-      emptyTitle="Nothing to report yet"
-      description="Once your event is live, attendance and check-in numbers appear here."
-      ctaLabel="Browse templates"
+      title={t('dashboard.title')}
+      emptyTitle={t('dashboard.emptyTitle')}
+      description={t('dashboard.description')}
+      ctaLabel={t('dashboard.cta')}
       ctaTo="/templates"
       icon={LayoutDashboardIcon}
     />
@@ -25,12 +28,14 @@ export function DashboardPage() {
 }
 
 export function TemplatesPage() {
+  const { t } = useTranslation('pages')
+
   return (
     <EmptyStatePage
-      title="Templates"
-      emptyTitle="No templates yet"
-      description="Ready-made card designs for weddings, send-offs, corporate events, and birthdays show up here."
-      ctaLabel="Go to Events"
+      title={t('templates.title')}
+      emptyTitle={t('templates.emptyTitle')}
+      description={t('templates.description')}
+      ctaLabel={t('templates.cta')}
       ctaTo="/events"
       icon={LayoutTemplateIcon}
     />
@@ -38,12 +43,14 @@ export function TemplatesPage() {
 }
 
 export function EventsPage() {
+  const { t } = useTranslation('pages')
+
   return (
     <EmptyStatePage
-      title="Events"
-      emptyTitle="No events yet"
-      description="Create your first event to start designing and sending cards."
-      ctaLabel="Create an event"
+      title={t('events.title')}
+      emptyTitle={t('events.emptyTitle')}
+      description={t('events.description')}
+      ctaLabel={t('events.cta')}
       ctaTo="/dashboard"
       icon={CalendarPlusIcon}
     />
@@ -51,12 +58,14 @@ export function EventsPage() {
 }
 
 export function BillingPage() {
+  const { t } = useTranslation('pages')
+
   return (
     <EmptyStatePage
-      title="Billing"
-      emptyTitle="No payments to show"
-      description="Lipa Namba instructions and payment status for your events appear here."
-      ctaLabel="Go to Events"
+      title={t('billing.title')}
+      emptyTitle={t('billing.emptyTitle')}
+      description={t('billing.description')}
+      ctaLabel={t('billing.cta')}
       ctaTo="/events"
       icon={CreditCardIcon}
     />
@@ -64,12 +73,14 @@ export function BillingPage() {
 }
 
 export function CheckInPage() {
+  const { t } = useTranslation('pages')
+
   return (
     <EmptyStatePage
-      title="Check-In"
-      emptyTitle="Check-in unlocks during a live event"
-      description="Scan guest and event QR codes at the door once one of your events is live."
-      ctaLabel="Go to Events"
+      title={t('checkIn.title')}
+      emptyTitle={t('checkIn.emptyTitle')}
+      description={t('checkIn.description')}
+      ctaLabel={t('checkIn.cta')}
       ctaTo="/events"
       icon={ScanLineIcon}
     />
@@ -77,12 +88,14 @@ export function CheckInPage() {
 }
 
 export function ReportsPage() {
+  const { t } = useTranslation('pages')
+
   return (
     <EmptyStatePage
-      title="Reports"
-      emptyTitle="No reports yet"
-      description="A post-event attendance summary is ready once an event finishes."
-      ctaLabel="Go to Events"
+      title={t('reports.title')}
+      emptyTitle={t('reports.emptyTitle')}
+      description={t('reports.description')}
+      ctaLabel={t('reports.cta')}
       ctaTo="/events"
       icon={BarChart3Icon}
     />
@@ -90,12 +103,14 @@ export function ReportsPage() {
 }
 
 export function SettingsPage() {
+  const { t } = useTranslation('pages')
+
   return (
     <EmptyStatePage
-      title="Settings"
-      emptyTitle="Nothing to configure yet"
-      description="Account and organization settings will live here."
-      ctaLabel="Go to Dashboard"
+      title={t('settings.title')}
+      emptyTitle={t('settings.emptyTitle')}
+      description={t('settings.description')}
+      ctaLabel={t('settings.cta')}
       ctaTo="/dashboard"
       icon={SettingsIcon}
     />
@@ -103,12 +118,14 @@ export function SettingsPage() {
 }
 
 export function ActivationPage() {
+  const { t } = useTranslation('pages')
+
   return (
     <EmptyStatePage
-      title="Event Activation"
-      emptyTitle="No events awaiting activation"
-      description="Events with a confirmed Lipa Namba payment appear here for a super admin to activate."
-      ctaLabel="Go to Dashboard"
+      title={t('activation.title')}
+      emptyTitle={t('activation.emptyTitle')}
+      description={t('activation.description')}
+      ctaLabel={t('activation.cta')}
       ctaTo="/dashboard"
       icon={BellRingIcon}
     />
@@ -116,12 +133,14 @@ export function ActivationPage() {
 }
 
 export function NotFoundPage() {
+  const { t } = useTranslation('pages')
+
   return (
     <EmptyStatePage
-      title="Page not found"
-      emptyTitle="We couldn't find that page"
-      description="The address may be mistyped or the page may have moved."
-      ctaLabel="Go to Dashboard"
+      title={t('notFound.title')}
+      emptyTitle={t('notFound.emptyTitle')}
+      description={t('notFound.description')}
+      ctaLabel={t('notFound.cta')}
       ctaTo="/dashboard"
       icon={CompassIcon}
     />

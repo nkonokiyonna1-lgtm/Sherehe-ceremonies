@@ -1,0 +1,56 @@
+{
+  "dashboard": {
+    "title": "Dashibodi",
+    "emptyTitle": "Hakuna cha kuripoti bado",
+    "description": "Tukio lako likishaanza, takwimu za mahudhurio na za kuingia zitaonekana hapa.",
+    "cta": "Tazama violezo"
+  },
+  "templates": {
+    "title": "Violezo",
+    "emptyTitle": "Bado hakuna violezo",
+    "description": "Miundo ya kadi iliyo tayari kwa harusi, send off, matukio ya kampuni na siku za kuzaliwa itaonekana hapa.",
+    "cta": "Nenda kwenye Matukio"
+  },
+  "events": {
+    "title": "Matukio",
+    "emptyTitle": "Bado hakuna matukio",
+    "description": "Unda tukio lako la kwanza ili uanze kubuni na kutuma kadi.",
+    "cta": "Unda tukio"
+  },
+  "billing": {
+    "title": "Malipo",
+    "emptyTitle": "Hakuna malipo ya kuonyesha",
+    "description": "Maelekezo ya Lipa Namba na hali ya malipo ya matukio yako yataonekana hapa.",
+    "cta": "Nenda kwenye Matukio"
+  },
+  "checkIn": {
+    "title": "Kuingia",
+    "emptyTitle": "Kuingia kunafunguka wakati wa tukio linaloendelea",
+    "description": "Skani misimbo ya QR ya wageni na ya tukio mlangoni mara tukio lako moja litakapoanza.",
+    "cta": "Nenda kwenye Matukio"
+  },
+  "reports": {
+    "title": "Ripoti",
+    "emptyTitle": "Bado hakuna ripoti",
+    "description": "Muhtasari wa mahudhurio baada ya tukio unakuwa tayari tukio likimalizika.",
+    "cta": "Nenda kwenye Matukio"
+  },
+  "settings": {
+    "title": "Mipangilio",
+    "emptyTitle": "Hakuna cha kusanidi bado",
+    "description": "Mipangilio ya akaunti na ya shirika itakuwa hapa.",
+    "cta": "Nenda kwenye Dashibodi"
+  },
+  "activation": {
+    "title": "Kuwezesha Tukio",
+    "emptyTitle": "Hakuna matukio yanayosubiri kuwezeshwa",
+    "description": "Matukio yenye malipo ya Lipa Namba yaliyothibitishwa yataonekana hapa ili msimamizi mkuu ayawezeshe.",
+    "cta": "Nenda kwenye Dashibodi"
+  },
+  "notFound": {
+    "title": "Ukurasa haupatikani",
+    "emptyTitle": "Hatukuweza kupata ukurasa huo",
+    "description": "Anwani inaweza kuwa imeandikwa vibaya au ukurasa umehamishwa.",
+    "cta": "Nenda kwenye Dashibodi"
+  }
+}

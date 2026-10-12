@@ -1,0 +1,21 @@
+{
+  "theme": {
+    "switchToLight": "Switch to light theme",
+    "switchToDark": "Switch to dark theme"
+  },
+  "language": {
+    "switchTo": "Switch language to {{language}}",
+    "names": {
+      "en": "English",
+      "sw": "Kiswahili"
+    }
+  },
+  "ui": {
+    "toggleSidebar": "Toggle Sidebar",
+    "sidebarTitle": "Sidebar",
+    "mobileSidebarDescription": "Displays the mobile sidebar.",
+    "close": "Close",
+    "breadcrumb": "breadcrumb",
+    "more": "More"
+  }
+}
